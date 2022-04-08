@@ -16,7 +16,7 @@ class OrderNotify extends ChangeNotifier {
   }
 
   removeOrder(o) {
-    items.removeAt(o);
+    items.remove(o);
     notifyListeners();
   }
 
@@ -33,5 +33,13 @@ class OrderNotify extends ChangeNotifier {
   incrementQty(order) {
     items[items.indexOf(order)].quantity += 1;
     notifyListeners();
+  }
+
+  double getTotal() {
+    double sum = 0;
+    this.items.forEach((e) {
+      sum += (e.price! * e.quantity);
+    });
+    return sum;
   }
 }

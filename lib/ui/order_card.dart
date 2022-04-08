@@ -10,7 +10,7 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final po = Provider.of<OrderNotify>(context);
+    final povider = Provider.of<OrderNotify>(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -40,12 +40,11 @@ class OrderCard extends StatelessWidget {
                 children: [
                   Container(
                     width: 60,
-                    child: ElevatedButton.icon(
+                    child: ElevatedButton(
+                      child: Icon(Icons.remove),
                       onPressed: () {
-                        po.decrementQty(order);
+                        povider.decrementQty(order);
                       },
-                      icon: Icon(Icons.remove),
-                      label: Text(''),
                     ),
                   ),
                   Container(
@@ -56,9 +55,9 @@ class OrderCard extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    child: Icon(Icons.plus_one),
+                    child: Icon(Icons.add),
                     onPressed: () {
-                      po.incrementQty(order);
+                      povider.incrementQty(order);
                     },
                   ),
                   Expanded(
@@ -75,7 +74,7 @@ class OrderCard extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

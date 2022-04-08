@@ -17,33 +17,56 @@ class ScreenOrder extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: order.items
-            .map(
-              (e) => Dismissible(
-                direction: DismissDirection.endToStart,
-                onDismissed: (dir) {
-                  order.removeOrder(e);
-                },
-                background: Container(
-                  color: Colors.red.shade400,
-                  padding: EdgeInsets.only(right: 8),
-                  child: Align(
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.white,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: order.items
+                  .map(
+                    (e) => Dismissible(
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (dir) {
+                        order.removeOrder(e);
+                      },
+                      background: Container(
+                        color: Colors.red.shade400,
+                        padding: EdgeInsets.only(right: 8),
+                        child: Align(
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.centerRight,
+                        ),
+                      ),
+                      key: Key(UniqueKey().toString()),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: OrderCard(e),
+                      ),
                     ),
-                    alignment: Alignment.centerRight,
+                  )
+                  .toList(),
+            ),
+          ),
+          Container(
+            height: 100,
+            color: Colors.blue.withOpacity(.2),
+            child: ListTile(
+              title: Align(
+                child: Text(
+                  'Total Amount : ${order.getTotal()}',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade500,
                   ),
                 ),
-                key: Key(UniqueKey().toString()),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: OrderCard(e),
-                ),
+                alignment: Alignment.centerRight,
               ),
-            )
-            .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
